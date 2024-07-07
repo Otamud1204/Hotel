@@ -1,0 +1,1354 @@
+Index: src/main/java/org/uz/entity/Database/DB.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.uz.entity.Database;\r\n\r\nimport org.uz.entity.entitiy.User;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Scanner;\r\n\r\npublic class DB {\r\n    public static Scanner scanner = new Scanner(System.in);\r\n    public static Scanner strScanner = new Scanner(System.in);\r\n    public static ArrayList<User> users = new ArrayList<>();\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entity/Database/DB.java b/src/main/java/org/uz/entity/Database/DB.java
+--- a/src/main/java/org/uz/entity/Database/DB.java	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ b/src/main/java/org/uz/entity/Database/DB.java	(date 1720361366464)
+@@ -1,12 +1,17 @@
+ package org.uz.entity.Database;
+ 
+-import org.uz.entity.entitiy.User;
+-
+ import java.util.ArrayList;
+ import java.util.Scanner;
+ 
++import org.uz.entity.entitiy.Role;
++import org.uz.entity.entitiy.User;
++
+ public class DB {
+     public static Scanner scanner = new Scanner(System.in);
+     public static Scanner strScanner = new Scanner(System.in);
+     public static ArrayList<User> users = new ArrayList<>();
++
++    static {
++        users.add(new User("admin", "admin", "123", "admin123", Role.ADMIN));
++    }
+ }
+Index: src/main/java/org/uz/entity/service/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.uz.entity.service;\r\n\r\nimport org.uz.entity.Database.DB;\r\n\r\npublic class UserService {\r\n    public static void userService() {\r\n        while (true) {\r\n\r\n            System.out.println(\"\"\"\r\n                    0 -> exit\r\n                    1 -> my booking\r\n                    2 -> active rooms\r\n                    3 -> booking\r\n                    4 -> cancel\r\n                    5 -> balance\r\n                    \"\"\");\r\n            switch (DB.scanner.nextInt()) {\r\n                case 0 -> {\r\n                    System.out.println(\"bye bye\");\r\n                    return;\r\n                }\r\n                case 1 -> myBookings();\r\n                case 2 -> activeRooms();\r\n                case 3 -> booking();\r\n                case 4 -> cancel();\r\n                case 5 -> balance();\r\n                default -> {\r\n                    System.out.println(\"Wrong operation!\");\r\n                    return;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    private static void myBookings() {\r\n\r\n    }\r\n\r\n    private static void activeRooms() {\r\n\r\n    }\r\n\r\n    private static void booking() {\r\n\r\n    }\r\n\r\n    private static void cancel() {\r\n\r\n    }\r\n\r\n    private static void balance() {\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entity/service/UserService.java b/src/main/java/org/uz/entity/service/UserService.java
+--- a/src/main/java/org/uz/entity/service/UserService.java	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ b/src/main/java/org/uz/entity/service/UserService.java	(date 1720364135435)
+@@ -1,54 +1,115 @@
+ package org.uz.entity.service;
+ 
+ import org.uz.entity.Database.DB;
++import org.uz.entity.entitiy.Room;
++import org.uz.entity.entitiy.User;
++
++import java.util.Date;
+ 
+ public class UserService {
++    public UserService() {}
++
+     public static void userService() {
+         while (true) {
+-
+-            System.out.println("""
+-                    0 -> exit
+-                    1 -> my booking
+-                    2 -> active rooms
+-                    3 -> booking
+-                    4 -> cancel
+-                    5 -> balance
+-                    """);
+-            switch (DB.scanner.nextInt()) {
+-                case 0 -> {
+-                    System.out.println("bye bye");
++            System.out.println("0 -> Exit\n1 -> My Bookings\n2 -> Active Rooms\n3 -> Make a Booking\n4 -> Cancel Booking\n5 -> Check Balance\n");
++            int choice = DB.scanner.nextInt();
++            DB.scanner.nextLine();
++            switch (choice) {
++                case 0:
++                    System.out.println("Xayr");
+                     return;
+-                }
+-                case 1 -> myBookings();
+-                case 2 -> activeRooms();
+-                case 3 -> booking();
+-                case 4 -> cancel();
+-                case 5 -> balance();
+-                default -> {
+-                    System.out.println("Wrong operation!");
+-                    return;
+-                }
++                case 1:
++                    myBookings();
++                    break;
++                case 2:
++                    activeRooms();
++                    break;
++                case 3:
++                    booking();
++                    break;
++                case 4:
++                    cancelBooking();
++                    break;
++                case 5:
++                    checkBalance();
++                    break;
++                default:
++                    System.out.println("Noto'g'ri tanlov! Iltimos, qaytadan urinib ko'ring.");
+             }
+         }
+     }
+ 
+     private static void myBookings() {
+-
++        System.out.println("Sizning bronlaringiz:");
++        User currentUser = getCurrentUser();
++        if (currentUser != null) {
++            for (int i = 0; i < Room.rooms.length; i++) {
++                for (int j = 0; j < Room.rooms[i].length; j++) {
++                    Room room = Room.rooms[i][j];
++                    // getBookedBy metodini ishlatishni o'zgartirdim
++                    if (room.getBookedBy() != null && room.getBookedBy().equals(currentUser.getName())) {
++                        System.out.println("Xona[" + i + "][" + j + "]: " + room);
++                    }
++                }
++            }
++        } else {
++            System.out.println("Foydalanuvchi topilmadi.");
++        }
+     }
+ 
+     private static void activeRooms() {
+-
++        System.out.println("Barcha faol xonalar:");
++        for (int i = 0; i < Room.rooms.length; i++) {
++            for (int j = 0; j < Room.rooms[i].length; j++) {
++                if (Room.rooms[i][j].getActive() && Room.rooms[i][j].getFree()) {
++                    System.out.println("Xona[" + i + "][" + j + "]: " + Room.rooms[i][j]);
++                }
++            }
++        }
+     }
+ 
+     private static void booking() {
++        System.out.println("Xonani bron qilish...");
++        System.out.println("Qavatni kiriting (0-9):");
++        int floor = DB.scanner.nextInt();
++        System.out.println("Xona raqamini kiriting (0-19):");
++        int roomNumber = DB.scanner.nextInt();
++        User currentUser = getCurrentUser();
++        if (currentUser != null) {
++            Room.rooms[floor][roomNumber].setFree(false);
++            Room.rooms[floor][roomNumber].setDate(new Date());
++            Room.rooms[floor][roomNumber].setActive(true);
++            Room.rooms[floor][roomNumber].setBookedBy(currentUser.getName()); // Foydalanuvchi tomonidan bron qilingan xona
++            System.out.println("Xona muvaffaqiyatli bron qilindi.");
++        } else {
++            System.out.println("Foydalanuvchi topilmadi.");
++        }
++    }
+ 
++    private static void cancelBooking() {
++        System.out.println("Bronni bekor qilish...");
++        System.out.println("Qavatni kiriting (0-9):");
++        int floor = DB.scanner.nextInt();
++        System.out.println("Xona raqamini kiriting (0-19):");
++        int roomNumber = DB.scanner.nextInt();
++        Room.rooms[floor][roomNumber].setFree(true);
++        Room.rooms[floor][roomNumber].setActive(false);
++        Room.rooms[floor][roomNumber].setBookedBy(null); // Bron bekor qilindi
++        System.out.println("Bron muvaffaqiyatli bekor qilindi.");
+     }
+ 
+-    private static void cancel() {
+-
++    private static void checkBalance() {
++        System.out.println("Balansingizni tekshirish...");
++        User currentUser = getCurrentUser();
++        if (currentUser != null) {
++            System.out.println("Balansingiz: $" + currentUser.getBalance());
++        } else {
++            System.out.println("Foydalanuvchi topilmadi.");
++        }
+     }
+ 
+-    private static void balance() {
+-
++    private static User getCurrentUser() {
++        // Foydalanuvchi tekshirish logikasini qo'shing
++        return null; // Demo uchun null qaytarildi
+     }
+ }
+Index: src/main/java/org/uz/entity/Database/orderHistory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.uz.entity.Database;\r\n\r\npublic class orderHistory {\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entity/Database/orderHistory.java b/src/main/java/org/uz/entity/Database/OrderHistory.java
+rename from src/main/java/org/uz/entity/Database/orderHistory.java
+rename to src/main/java/org/uz/entity/Database/OrderHistory.java
+--- a/src/main/java/org/uz/entity/Database/orderHistory.java	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ b/src/main/java/org/uz/entity/Database/OrderHistory.java	(date 1720361447163)
+@@ -1,5 +1,10 @@
+ package org.uz.entity.Database;
+ 
+-public class orderHistory {
++import java.util.ArrayList;
++import org.uz.entity.entitiy.Room;
+ 
++public class OrderHistory {
++    public static ArrayList<Room> history = new ArrayList<>();
++
++    public OrderHistory() {}
+ }
+Index: src/main/java/org/uz/entity/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.uz.entity;\r\n\r\nimport org.uz.entity.Database.DB;\r\nimport org.uz.entity.entitiy.Role;\r\nimport org.uz.entity.entitiy.User;\r\nimport org.uz.entity.service.AuthService;\r\n\r\nimport static org.uz.entity.Database.DB.users;\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        users.add(new User(\"admin\", \"admin\", \"123\", \"admin123\", Role.ADMIN));\r\n        while (true) {\r\n            System.out.println(\"\"\"\r\n                    0-exit\r\n                    1-Sign  Up\r\n                    2-Sign In\r\n                    \"\"\");\r\n            switch (DB.scanner.nextInt()) {\r\n                case 0 -> {\r\n                    System.out.println(\"bye bye\");\r\n                    return;\r\n                }\r\n                case 1 -> AuthService.signUp();\r\n                case 2 -> AuthService.signIn();\r\n\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entity/Main.java b/src/main/java/org/uz/entity/Main.java
+--- a/src/main/java/org/uz/entity/Main.java	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ b/src/main/java/org/uz/entity/Main.java	(date 1720360750987)
+@@ -1,29 +1,26 @@
+ package org.uz.entity;
+ 
+ import org.uz.entity.Database.DB;
+-import org.uz.entity.entitiy.Role;
+-import org.uz.entity.entitiy.User;
+ import org.uz.entity.service.AuthService;
+ 
+-import static org.uz.entity.Database.DB.users;
+-
+ public class Main {
+     public static void main(String[] args) {
+-        users.add(new User("admin", "admin", "123", "admin123", Role.ADMIN));
+         while (true) {
+-            System.out.println("""
+-                    0-exit
+-                    1-Sign  Up
+-                    2-Sign In
+-                    """);
+-            switch (DB.scanner.nextInt()) {
+-                case 0 -> {
+-                    System.out.println("bye bye");
++            System.out.println("1. Sign Up\n2. Sign In\n3. Exit");
++            int choice = DB.scanner.nextInt();
++            DB.scanner.nextLine();
++            switch (choice) {
++                case 1:
++                    AuthService.signUp();
++                    break;
++                case 2:
++                    AuthService.signIn();
++                    break;
++                case 3:
++                    System.out.println("Exiting...");
+                     return;
+-                }
+-                case 1 -> AuthService.signUp();
+-                case 2 -> AuthService.signIn();
+-
++                default:
++                    System.out.println("Invalid option. Please try again.");
+             }
+         }
+     }
+Index: src/main/java/org/uz/entity/service/AuthService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.uz.entity.service;\r\n\r\nimport org.uz.entity.entitiy.Role;\r\nimport org.uz.entity.entitiy.User;\r\n\r\nimport static org.uz.entity.Database.DB.strScanner;\r\nimport static org.uz.entity.Database.DB.users;\r\n\r\npublic class AuthService {\r\n    public static void signUp() {\r\n        User user = new User();\r\n\r\n        System.out.println(\"Enter name...\");\r\n        user.setName(strScanner.nextLine());\r\n        System.out.println(\"Enter surname...\");\r\n        user.setSurname(strScanner.nextLine());\r\n        System.out.println(\"Enter phone number...\");\r\n        user.setPhoneNumber(strScanner.nextLine());\r\n        System.out.println(\"Enter password...\");\r\n        user.setPassword(strScanner.nextLine());\r\n        user.setRole(Role.USER);\r\n        users.add(user);\r\n        System.out.println(\"Signed successfully\");\r\n    }\r\n\r\n    public static void signIn() {\r\n        System.out.println(\"Enter name...\");\r\n        String name = strScanner.nextLine();\r\n        System.out.println(\"Enter password...\");\r\n        String password = strScanner.nextLine();\r\n        for (int i = 0; i < users.size(); i++) {\r\n            if (users.get(i).getName().equals(name) && users.get(i).getPassword().equals(password)) {\r\n                if (users.get(i).getRole().equals(Role.USER)) UserService.userService();\r\n                if (users.get(i).getRole().equals(Role.ADMIN)) AdminService.adminService();\r\n            }\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entity/service/AuthService.java b/src/main/java/org/uz/entity/service/AuthService.java
+--- a/src/main/java/org/uz/entity/service/AuthService.java	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ b/src/main/java/org/uz/entity/service/AuthService.java	(date 1720361790588)
+@@ -1,39 +1,43 @@
+ package org.uz.entity.service;
+ 
++import org.uz.entity.Database.DB;
+ import org.uz.entity.entitiy.Role;
+ import org.uz.entity.entitiy.User;
+ 
+-import static org.uz.entity.Database.DB.strScanner;
+-import static org.uz.entity.Database.DB.users;
+-
+ public class AuthService {
++    public AuthService() {}
++
+     public static void signUp() {
+         User user = new User();
+-
+-        System.out.println("Enter name...");
+-        user.setName(strScanner.nextLine());
+-        System.out.println("Enter surname...");
+-        user.setSurname(strScanner.nextLine());
+-        System.out.println("Enter phone number...");
+-        user.setPhoneNumber(strScanner.nextLine());
+-        System.out.println("Enter password...");
+-        user.setPassword(strScanner.nextLine());
++        System.out.println("Ismingizni kiriting...");
++        user.setName(DB.strScanner.nextLine());
++        System.out.println("Familiyangizni kiriting...");
++        user.setSurname(DB.strScanner.nextLine());
++        System.out.println("Telefon raqamingizni kiriting...");
++        user.setPhoneNumber(DB.strScanner.nextLine());
++        System.out.println("Parolingizni kiriting...");
++        user.setPassword(DB.strScanner.nextLine());
+         user.setRole(Role.USER);
+-        users.add(user);
+-        System.out.println("Signed successfully");
++        DB.users.add(user);
++        System.out.println("Ro'yhatdan muvaffaqiyatli o'tildi");
+     }
+ 
+     public static void signIn() {
+-        System.out.println("Enter name...");
+-        String name = strScanner.nextLine();
+-        System.out.println("Enter password...");
+-        String password = strScanner.nextLine();
+-        for (int i = 0; i < users.size(); i++) {
+-            if (users.get(i).getName().equals(name) && users.get(i).getPassword().equals(password)) {
+-                if (users.get(i).getRole().equals(Role.USER)) UserService.userService();
+-                if (users.get(i).getRole().equals(Role.ADMIN)) AdminService.adminService();
++        System.out.println("Ismingizni kiriting...");
++        String name = DB.strScanner.nextLine();
++        System.out.println("Parolingizni kiriting...");
++        String password = DB.strScanner.nextLine();
++
++        for (User user : DB.users) {
++            if (user.getName().equals(name) && user.getPassword().equals(password)) {
++                if (user.getRole().equals(Role.USER)) {
++                    UserService.userService();
++                } else if (user.getRole().equals(Role.ADMIN)) {
++                    AdminService.adminService();
++                }
++                return;
+             }
+         }
++        System.out.println("Foydalanuvchi topilmadi");
+     }
+-
+ }
+Index: src/main/java/org/uz/entity/service/AdminService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.uz.entity.service;\r\n\r\nimport org.uz.entity.Database.DB;\r\n\r\npublic class AdminService {\r\n    public static void adminService() {\r\n        while (true) {\r\n            System.out.println(\"\"\"\r\n                    Admin Menu:\r\n                    1. show Rooms\r\n                    2. book for temporary\r\n                    3. cancel booking\r\n                    4. active bookings\r\n                    5. history\r\n                    6. out of work\r\n                    \"\"\");\r\n\r\n            int choice = DB.scanner.nextInt();\r\n            DB.scanner.nextLine(); // Consume newline character\r\n\r\n            switch (choice) {\r\n                case 1 -> showRooms();\r\n                case 2 -> bookForTemporary();\r\n                case 3 -> cancelBooking();\r\n                case 4 -> activeBookings();\r\n                case 5 -> History();\r\n                case 6 -> outOfWork();\r\n                default -> System.out.println(\"Invalid option. Please try again.\");\r\n            }\r\n        }\r\n    }\r\n\r\n    private static void showRooms() {\r\n\r\n    }\r\n\r\n    private static void bookForTemporary() {\r\n\r\n    }\r\n\r\n    private static void cancelBooking() {\r\n\r\n    }\r\n\r\n    private static void activeBookings() {\r\n\r\n    }\r\n\r\n    private static void History() {\r\n\r\n    }\r\n\r\n    private static void outOfWork() {\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entity/service/AdminService.java b/src/main/java/org/uz/entity/service/AdminService.java
+--- a/src/main/java/org/uz/entity/service/AdminService.java	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ b/src/main/java/org/uz/entity/service/AdminService.java	(date 1720364159173)
+@@ -1,56 +1,91 @@
+ package org.uz.entity.service;
+ 
+ import org.uz.entity.Database.DB;
++import org.uz.entity.Database.OrderHistory;
++import org.uz.entity.entitiy.Room;
++
++import java.util.Date;
+ 
+ public class AdminService {
++    public AdminService() {}
++
+     public static void adminService() {
+         while (true) {
+-            System.out.println("""
+-                    Admin Menu:
+-                    1. show Rooms
+-                    2. book for temporary
+-                    3. cancel booking
+-                    4. active bookings
+-                    5. history
+-                    6. out of work
+-                    """);
+-
++            System.out.println("Admin Menu:\n1. Show Rooms\n2. Book Temporary\n3. Cancel Booking\n4. Active Bookings\n5. History\n6. Exit\n");
+             int choice = DB.scanner.nextInt();
+-            DB.scanner.nextLine(); // Consume newline character
+-
++            DB.scanner.nextLine();
+             switch (choice) {
+-                case 1 -> showRooms();
+-                case 2 -> bookForTemporary();
+-                case 3 -> cancelBooking();
+-                case 4 -> activeBookings();
+-                case 5 -> History();
+-                case 6 -> outOfWork();
+-                default -> System.out.println("Invalid option. Please try again.");
++                case 1:
++                    showRooms();
++                    break;
++                case 2:
++                    bookForTemporary();
++                    break;
++                case 3:
++                    cancelBooking();
++                    break;
++                case 4:
++                    activeBookings();
++                    break;
++                case 5:
++                    showHistory();
++                    break;
++                case 6:
++                    System.out.println("Ishdan chiqildi.");
++                    return;
++                default:
++                    System.out.println("Noto'g'ri tanlov! Iltimos, qaytadan urinib ko'ring.");
+             }
+         }
+     }
+ 
+     private static void showRooms() {
+-
++        System.out.println("Barcha xonalar:");
++        for (int i = 0; i < Room.rooms.length; i++) {
++            for (int j = 0; j < Room.rooms[i].length; j++) {
++                System.out.println("Xona[" + i + "][" + j + "]: " + Room.rooms[i][j]);
++            }
++        }
+     }
+ 
+     private static void bookForTemporary() {
+-
++        System.out.println("Xonani vaqtinchalik bron qilish...");
++        System.out.println("Qavatni kiriting (0-9):");
++        int floor = DB.scanner.nextInt();
++        System.out.println("Xona raqamini kiriting (0-19):");
++        int roomNumber = DB.scanner.nextInt();
++        Room.rooms[floor][roomNumber].setFree(false);
++        Room.rooms[floor][roomNumber].setDate(new Date());
++        Room.rooms[floor][roomNumber].setActive(true);
++        System.out.println("Xona muvaffaqiyatli vaqtinchalik bron qilindi.");
+     }
+ 
+     private static void cancelBooking() {
+-
++        System.out.println("Bronni bekor qilish...");
++        System.out.println("Qavatni kiriting (0-9):");
++        int floor = DB.scanner.nextInt();
++        System.out.println("Xona raqamini kiriting (0-19):");
++        int roomNumber = DB.scanner.nextInt();
++        Room.rooms[floor][roomNumber].setFree(true);
++        Room.rooms[floor][roomNumber].setActive(false);
++        System.out.println("Bron muvaffaqiyatli bekor qilindi.");
+     }
+ 
+     private static void activeBookings() {
+-
++        System.out.println("Faol bronlar:");
++        for (int i = 0; i < Room.rooms.length; i++) {
++            for (int j = 0; j < Room.rooms[i].length; j++) {
++                if (!Room.rooms[i][j].getFree() && Room.rooms[i][j].getActive()) {
++                    System.out.println("Xona[" + i + "][" + j + "]: " + Room.rooms[i][j]);
++                }
++            }
++        }
+     }
+ 
+-    private static void History() {
+-
+-    }
+-
+-    private static void outOfWork() {
+-
++    private static void showHistory() {
++        System.out.println("Bronlar tarixi:");
++        for (Room room : OrderHistory.history) {
++            System.out.println(room);
++        }
+     }
+ }
+Index: src/main/java/org/uz/entity/entitiy/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.uz.entity.entitiy;\r\n\r\nimport lombok.AllArgsConstructor;\r\nimport lombok.Data;\r\nimport lombok.NoArgsConstructor;\r\n\r\n@Data\r\n@AllArgsConstructor\r\n@NoArgsConstructor\r\npublic class User {\r\n    private String name;\r\n    private String surname;\r\n    private String phoneNumber;\r\n    private String password;\r\n    private Role role;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entity/entitiy/User.java b/src/main/java/org/uz/entity/entitiy/User.java
+--- a/src/main/java/org/uz/entity/entitiy/User.java	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ b/src/main/java/org/uz/entity/entitiy/User.java	(date 1720363903805)
+@@ -1,16 +1,81 @@
+ package org.uz.entity.entitiy;
+ 
+-import lombok.AllArgsConstructor;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-@Data
+-@AllArgsConstructor
+-@NoArgsConstructor
+ public class User {
+     private String name;
+     private String surname;
+     private String phoneNumber;
+     private String password;
+     private Role role;
++    private double balance;
++
++    public User(String name, String surname, String phoneNumber, String password, Role role) {
++        this.name = name;
++        this.surname = surname;
++        this.phoneNumber = phoneNumber;
++        this.password = password;
++        this.role = role;
++        this.balance = 0.0;
++    }
++
++    public User() {}
++
++    public String getName() {
++        return name;
++    }
++
++    public void setName(String name) {
++        this.name = name;
++    }
++
++    public String getSurname() {
++        return surname;
++    }
++
++    public void setSurname(String surname) {
++        this.surname = surname;
++    }
++
++    public String getPhoneNumber() {
++        return phoneNumber;
++    }
++
++    public void setPhoneNumber(String phoneNumber) {
++        this.phoneNumber = phoneNumber;
++    }
++
++    public String getPassword() {
++        return password;
++    }
++
++    public void setPassword(String password) {
++        this.password = password;
++    }
++
++    public Role getRole() {
++        return role;
++    }
++
++    public void setRole(Role role) {
++        this.role = role;
++    }
++
++    public double getBalance() {
++        return balance;
++    }
++
++    public void setBalance(double balance) {
++        this.balance = balance;
++    }
++
++    @Override
++    public String toString() {
++        return "User{" +
++                "name='" + name + '\'' +
++                ", surname='" + surname + '\'' +
++                ", phoneNumber='" + phoneNumber + '\'' +
++                ", password='" + password + '\'' +
++                ", role=" + role +
++                ", balance=" + balance +
++                '}';
++    }
+ }
+Index: src/main/java/org/uz/entity/entitiy/Role.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.uz.entity.entitiy;\r\n\r\npublic enum Role {\r\n    ADMIN,\r\n    USER;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entity/entitiy/Role.java b/src/main/java/org/uz/entity/entitiy/Role.java
+--- a/src/main/java/org/uz/entity/entitiy/Role.java	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ b/src/main/java/org/uz/entity/entitiy/Role.java	(date 1720360500564)
+@@ -2,5 +2,5 @@
+ 
+ public enum Role {
+     ADMIN,
+-    USER;
++    USER
+ }
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_1.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_1.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_1.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_1.xml	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ /dev/null	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1" date="1720337999076" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 07.07.2024 12:39 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_.xml	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ /dev/null	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]" date="1720337988986" recycled="false" toDelete="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 07.07.2024 12:39 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1/shelved.patch	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ /dev/null	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
+@@ -1,234 +0,0 @@
+-Index: src/main/java/org/uz/entiti/entitiy/User.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package org.uz.entiti.entitiy;\r\n\r\nimport lombok.AllArgsConstructor;\r\nimport lombok.Data;\r\nimport lombok.NoArgsConstructor;\r\n\r\n@Data\r\n@AllArgsConstructor\r\n@NoArgsConstructor\r\npublic class User {\r\n    private String id;\r\n    private String name;\r\n    private String surname;\r\n    private String phoneNumber;\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/uz/entiti/entitiy/User.java b/src/main/java/org/uz/entiti/entitiy/User.java
+---- a/src/main/java/org/uz/entiti/entitiy/User.java	
+-+++ b/src/main/java/org/uz/entiti/entitiy/User.java	
+-@@ -8,8 +8,9 @@
+- @AllArgsConstructor
+- @NoArgsConstructor
+- public class User {
+--    private String id;
+-     private String name;
+-     private String surname;
+-     private String phoneNumber;
+-+    private String password;
+-+    private Role role;
+- }
+-Index: src/main/java/org/uz/entiti/service/AuthService.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package org.uz.entiti.service;\r\n\r\npublic class AuthService {\r\n\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/uz/entiti/service/AuthService.java b/src/main/java/org/uz/entiti/service/AuthService.java
+---- a/src/main/java/org/uz/entiti/service/AuthService.java	
+-+++ b/src/main/java/org/uz/entiti/service/AuthService.java	
+-@@ -1,5 +1,39 @@
+- package org.uz.entiti.service;
+- 
+-+import org.uz.entiti.entitiy.Role;
+-+import org.uz.entiti.entitiy.User;
+-+
+-+import static org.uz.entiti.Database.DB.strScanner;
+-+import static org.uz.entiti.Database.DB.users;
+-+
+- public class AuthService {
+-+    public static void signUp() {
+-+        User user = new User();
+-+
+-+        System.out.println("Enter name...");
+-+        user.setName(strScanner.nextLine());
+-+        System.out.println("Enter surname...");
+-+        user.setSurname(strScanner.nextLine());
+-+        System.out.println("Enter phone number...");
+-+        user.setPhoneNumber(strScanner.nextLine());
+-+        System.out.println("Enter password...");
+-+        user.setPassword(strScanner.nextLine());
+-+        user.setRole(Role.USER);
+-+        users.add(user);
+-+        System.out.println("Signed successfully");
+-+    }
+-+
+-+    public static void signIn() {
+-+        System.out.println("Enter name...");
+-+        String name = strScanner.nextLine();
+-+        System.out.println("Enter password...");
+-+        String password = strScanner.nextLine();
+-+        for (int i = 0; i < users.size(); i++) {
+-+            if (users.get(i).getName().equals(name) && users.get(i).getPassword().equals(password)) {
+-+                if (users.get(i).getRole().equals(Role.USER)) UserService.userService();
+-+                if (users.get(i).getRole().equals(Role.ADMIN)) AdminService.adminService();
+-+            }
+-+        }
+-+    }
+- 
+- }
+-Index: src/main/java/org/uz/entiti/service/AdminService.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package org.uz.entiti.service;\r\n\r\npublic class AdminService {\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/uz/entiti/service/AdminService.java b/src/main/java/org/uz/entiti/service/AdminService.java
+---- a/src/main/java/org/uz/entiti/service/AdminService.java	
+-+++ b/src/main/java/org/uz/entiti/service/AdminService.java	
+-@@ -1,4 +1,81 @@
+- package org.uz.entiti.service;
+- 
+-+import org.uz.entiti.Database.DB;
+-+
+- public class AdminService {
+-+    public static void adminService() {
+-+        while (true) {
+-+            System.out.println("""
+-+                    Admin Menu:
+-+                    1. Show Rooms
+-+                    2. Add Room
+-+                    3. Remove Room
+-+                    4. Show Bookings
+-+                    5. Remove Booking
+-+                    6. Show Users
+-+                    7. Remove User
+-+                    8. Exit to Main Menu
+-+                    """);
+-+
+-+            int choice = DB.scanner.nextInt();
+-+            DB.scanner.nextLine(); // Consume newline character
+-+
+-+            switch (choice) {
+-+                case 1:
+-+                    showRooms();
+-+                    break;
+-+                case 2:
+-+                    addRoom();
+-+                    break;
+-+                case 3:
+-+                    removeRoom();
+-+                    break;
+-+                case 4:
+-+                    showBookings();
+-+                    break;
+-+                case 5:
+-+                    removeBooking();
+-+                    break;
+-+                case 6:
+-+                    showUsers();
+-+                    break;
+-+                case 7:
+-+                    removeUser();
+-+                    break;
+-+                case 8:
+-+                    return;
+-+                default:
+-+                    System.out.println("Invalid option. Please try again.");
+-+            }
+-+
+-+        }
+-+    }
+-+
+-+    private static void showRooms() {
+-+
+-+    }
+-+
+-+    private static void addRoom() {
+-+
+-+    }
+-+
+-+    private static void removeRoom() {
+-+
+-+    }
+-+
+-+    private static void showBookings() {
+-+
+-+    }
+-+
+-+    private static void removeBooking() {
+-+
+-+    }
+-+
+-+    private static void showUsers() {
+-+
+-+    }
+-+
+-+    private static void removeUser() {
+-+
+-+    }
+- }
+-Index: src/main/java/org/uz/entiti/service/UserService.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package org.uz.entiti.service;\r\n\r\npublic class UserService {\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/uz/entiti/service/UserService.java b/src/main/java/org/uz/entiti/service/UserService.java
+---- a/src/main/java/org/uz/entiti/service/UserService.java	
+-+++ b/src/main/java/org/uz/entiti/service/UserService.java	
+-@@ -1,4 +1,60 @@
+- package org.uz.entiti.service;
+- 
+-+import org.uz.entiti.Database.DB;
+-+
+- public class UserService {
+-+    public static void userService() {
+-+        while (true) {
+-+
+-+            System.out.println("""
+-+                    0 -> exit
+-+                    1 -> my booking
+-+                    2 -> active rooms
+-+                    3 -> booking
+-+                    4 -> cancel
+-+                    5 -> balance
+-+                    """);
+-+            switch (DB.scanner.nextInt()) {
+-+                case 0 -> {
+-+                    System.out.println("bye bye");
+-+                    return;
+-+                }
+-+                case 1 -> {
+-+                    myBookings();
+-+                }
+-+                case 2 -> {
+-+                    activeRooms();
+-+                }
+-+                case 3 -> {
+-+                    booking();
+-+                }
+-+                case 4 -> {
+-+                    cancel();
+-+                }
+-+                case 5 -> {
+-+                    balance();
+-+                }
+-+            }
+-+        }
+-+    }
+-+
+-+    private static void myBookings() {
+-+
+-+    }
+-+
+-+    private static void activeRooms() {
+-+
+-+    }
+-+
+-+    private static void booking() {
+-+
+-+    }
+-+
+-+    private static void cancel() {
+-+
+-+    }
+-+
+-+    private static void balance() {
+-+
+-+    }
+- }
+Index: src/main/java/org/uz/entity/Hotel.java
+===================================================================
+diff --git a/src/main/java/org/uz/entity/Hotel.java b/src/main/java/org/uz/entity/Hotel.java
+deleted file mode 100644
+--- a/src/main/java/org/uz/entity/Hotel.java	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ /dev/null	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
+@@ -1,15 +0,0 @@
+-package org.uz.entity;
+-
+-import lombok.AllArgsConstructor;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-@Data
+-@AllArgsConstructor
+-@NoArgsConstructor
+-public class Hotel {
+-    private Integer floor;
+-    private Integer rooms;
+-
+-
+-}
+Index: .idea/uiDesigner.xml
+===================================================================
+diff --git a/.idea/uiDesigner.xml b/.idea/uiDesigner.xml
+deleted file mode 100644
+--- a/.idea/uiDesigner.xml	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ /dev/null	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
+@@ -1,124 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="Palette2">
+-    <group name="Swing">
+-      <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="1" hsize-policy="6" anchor="0" fill="1" />
+-      </item>
+-      <item class="com.intellij.uiDesigner.VSpacer" tooltip-text="Vertical Spacer" icon="/com/intellij/uiDesigner/icons/vspacer.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="1" anchor="0" fill="2" />
+-      </item>
+-      <item class="javax.swing.JPanel" icon="/com/intellij/uiDesigner/icons/panel.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3" />
+-      </item>
+-      <item class="javax.swing.JScrollPane" icon="/com/intellij/uiDesigner/icons/scrollPane.svg" removable="false" auto-create-binding="false" can-attach-label="true">
+-        <default-constraints vsize-policy="7" hsize-policy="7" anchor="0" fill="3" />
+-      </item>
+-      <item class="javax.swing.JButton" icon="/com/intellij/uiDesigner/icons/button.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="3" anchor="0" fill="1" />
+-        <initial-values>
+-          <property name="text" value="Button" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JRadioButton" icon="/com/intellij/uiDesigner/icons/radioButton.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
+-        <initial-values>
+-          <property name="text" value="RadioButton" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JCheckBox" icon="/com/intellij/uiDesigner/icons/checkBox.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
+-        <initial-values>
+-          <property name="text" value="CheckBox" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JLabel" icon="/com/intellij/uiDesigner/icons/label.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="0" anchor="8" fill="0" />
+-        <initial-values>
+-          <property name="text" value="Label" />
+-        </initial-values>
+-      </item>
+-      <item class="javax.swing.JTextField" icon="/com/intellij/uiDesigner/icons/textField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+-          <preferred-size width="150" height="-1" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JPasswordField" icon="/com/intellij/uiDesigner/icons/passwordField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+-          <preferred-size width="150" height="-1" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JFormattedTextField" icon="/com/intellij/uiDesigner/icons/formattedTextField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+-          <preferred-size width="150" height="-1" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTextArea" icon="/com/intellij/uiDesigner/icons/textArea.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTextPane" icon="/com/intellij/uiDesigner/icons/textPane.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JEditorPane" icon="/com/intellij/uiDesigner/icons/editorPane.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JComboBox" icon="/com/intellij/uiDesigner/icons/comboBox.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="2" anchor="8" fill="1" />
+-      </item>
+-      <item class="javax.swing.JTable" icon="/com/intellij/uiDesigner/icons/table.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JList" icon="/com/intellij/uiDesigner/icons/list.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="2" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTree" icon="/com/intellij/uiDesigner/icons/tree.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+-          <preferred-size width="150" height="50" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JTabbedPane" icon="/com/intellij/uiDesigner/icons/tabbedPane.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
+-          <preferred-size width="200" height="200" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JSplitPane" icon="/com/intellij/uiDesigner/icons/splitPane.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
+-          <preferred-size width="200" height="200" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JSpinner" icon="/com/intellij/uiDesigner/icons/spinner.svg" removable="false" auto-create-binding="true" can-attach-label="true">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
+-      </item>
+-      <item class="javax.swing.JSlider" icon="/com/intellij/uiDesigner/icons/slider.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
+-      </item>
+-      <item class="javax.swing.JSeparator" icon="/com/intellij/uiDesigner/icons/separator.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3" />
+-      </item>
+-      <item class="javax.swing.JProgressBar" icon="/com/intellij/uiDesigner/icons/progressbar.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1" />
+-      </item>
+-      <item class="javax.swing.JToolBar" icon="/com/intellij/uiDesigner/icons/toolbar.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1">
+-          <preferred-size width="-1" height="20" />
+-        </default-constraints>
+-      </item>
+-      <item class="javax.swing.JToolBar$Separator" icon="/com/intellij/uiDesigner/icons/toolbarSeparator.svg" removable="false" auto-create-binding="false" can-attach-label="false">
+-        <default-constraints vsize-policy="0" hsize-policy="0" anchor="0" fill="1" />
+-      </item>
+-      <item class="javax.swing.JScrollBar" icon="/com/intellij/uiDesigner/icons/scrollbar.svg" removable="false" auto-create-binding="true" can-attach-label="false">
+-        <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
+-      </item>
+-    </group>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]/shelved.patch	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ /dev/null	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
+@@ -1,121 +0,0 @@
+-Index: src/main/java/org/uz/entiti/Database/orderHistory.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package org.uz.entiti.Database;\r\n\r\npublic class orderHistory {\r\n\r\n//    ArrayList<User> users = new ArrayList<>();\r\n private static int a = 1;\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/uz/entiti/Database/orderHistory.java b/src/main/java/org/uz/entiti/Database/orderHistory.java
+---- a/src/main/java/org/uz/entiti/Database/orderHistory.java	
+-+++ b/src/main/java/org/uz/entiti/Database/orderHistory.java	
+-@@ -3,5 +3,4 @@
+- public class orderHistory {
+- 
+- //    ArrayList<User> users = new ArrayList<>();
+-- private static int a = 1;
+- }
+-Index: src/main/java/org/uz/entiti/Main.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package org.uz.entiti;\r\n\r\nimport lombok.AllArgsConstructor;\r\nimport lombok.Data;\r\nimport lombok.NoArgsConstructor;\r\nimport org.uz.entiti.Database.DB;\r\n\r\n@Data\r\n@NoArgsConstructor\r\n@AllArgsConstructor\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        while (true) {\r\n            System.out.println(\"\"\"\r\n                    0-exit \r\n                    1-Sign  Up\r\n                    2-Sign In                  \r\n                    \"\"\");\r\n            switch (DB.scanner.nextInt()) {\r\n                case 0 -> {\r\n                    System.out.println(\"bye bye\");\r\n                    return;\r\n                }\r\n                case 1 -> {\r\n\r\n                }\r\n                case 2 -> {\r\n\r\n                }\r\n\r\n            }\r\n        }\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/uz/entiti/Main.java b/src/main/java/org/uz/entiti/Main.java
+---- a/src/main/java/org/uz/entiti/Main.java	
+-+++ b/src/main/java/org/uz/entiti/Main.java	
+-@@ -3,7 +3,9 @@
+- import lombok.AllArgsConstructor;
+- import lombok.Data;
+- import lombok.NoArgsConstructor;
+--import org.uz.entiti.Database.DB;
+-+import org.uz.entiti.service.AuthService;
+-+
+-+import java.util.Scanner;
+- 
+- @Data
+- @NoArgsConstructor
+-@@ -11,23 +13,23 @@
+- public class Main {
+-     public static void main(String[] args) {
+-         while (true) {
+-+            Scanner scanner = new Scanner(System.in);
+-             System.out.println("""
+--                    0-exit 
+--                    1-Sign  Up
+--                    2-Sign In                  
+-+                    0-exit
+-+                    1-Sign Up
+-+                    2-Sign In
+-                     """);
+--            switch (DB.scanner.nextInt()) {
+-+            switch (scanner.nextInt()) {
+-                 case 0 -> {
+-                     System.out.println("bye bye");
+-                     return;
+-                 }
+-                 case 1 -> {
+--
+-+                    AuthService.signUp();
+-                 }
+-                 case 2 -> {
+--
+-+                    AuthService.signIn();
+-                 }
+--
+-             }
+-         }
+-     }
+-Index: src/main/java/org/uz/entiti/Admin.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/org/uz/entiti/Admin.java b/src/main/java/org/uz/entiti/Admin.java
+-deleted file mode 100644
+---- a/src/main/java/org/uz/entiti/Admin.java	
+-+++ /dev/null	
+-@@ -1,5 +0,0 @@
+--package org.uz.entiti;
+--
+--public class Admin {
+--
+--}
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"1b1af64b-4eb4-46d4-a665-e147a619e01d\" name=\"Changes\" comment=\"test\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Enum\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 6\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2iuBZnb6RgV8Tdk0598m55FllPe\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/Hp/Desktop/project/Hotel\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"jdk-17.0.9-corretto-17.0.9-4caba194b151-107bc6b7\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"1b1af64b-4eb4-46d4-a665-e147a619e01d\" name=\"Changes\" comment=\"\" />\r\n      <created>1720330641520</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1720330641520</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"test\">\r\n      <created>1720336910558</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1720336910558</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"test\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"test\" />\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	
+-+++ b/.idea/workspace.xml	
+-@@ -4,7 +4,16 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="1b1af64b-4eb4-46d4-a665-e147a619e01d" name="Changes" comment="test" />
+-+    <list default="true" id="1b1af64b-4eb4-46d4-a665-e147a619e01d" name="Changes" comment="">
+-+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Admin.java" beforeDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java" afterDir="false" />
+-+    </list>
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-@@ -20,6 +29,9 @@
+-   </component>
+-   <component name="Git.Settings">
+-     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+-+  </component>
+-+  <component name="MarkdownSettingsMigration">
+-+    <option name="stateVersion" value="1" />
+-   </component>
+-   <component name="ProjectColorInfo">{
+-   &quot;associatedIndex&quot;: 6
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01_[Changes]/shelved.patch	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ /dev/null	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
+@@ -1,64 +0,0 @@
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"1b1af64b-4eb4-46d4-a665-e147a619e01d\" name=\"Changes\" comment=\"test\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]/shelved.patch\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1/shelved.patch\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/Admin.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Enum\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"Azizbek\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 6\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2iuBZnb6RgV8Tdk0598m55FllPe\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/Hp/Desktop/project/Hotel\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.uz.entiti.Main\" />\r\n      <module name=\"Hotel\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"org.uz.entiti.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"jdk-17.0.9-corretto-17.0.9-4caba194b151-107bc6b7\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"1b1af64b-4eb4-46d4-a665-e147a619e01d\" name=\"Changes\" comment=\"\" />\r\n      <created>1720330641520</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1720330641520</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"test\">\r\n      <created>1720336910558</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1720336910558</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"test\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"test\" />\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 69d75dacfe35822138d593536ab7f9972bf912da)
+-+++ b/.idea/workspace.xml	(date 1720339110101)
+-@@ -4,18 +4,7 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="1b1af64b-4eb4-46d4-a665-e147a619e01d" name="Changes" comment="test">
+--      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]/shelved.patch" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1/shelved.patch" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Admin.java" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java" afterDir="false" />
+--    </list>
+-+    <list default="true" id="1b1af64b-4eb4-46d4-a665-e147a619e01d" name="Changes" comment="test" />
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-@@ -47,20 +36,20 @@
+-   <component name="ProjectViewState">
+-     <option name="showLibraryContents" value="true" />
+-   </component>
+--  <component name="PropertiesComponent"><![CDATA[{
+--  "keyToString": {
+--    "RunOnceActivity.OpenProjectViewOnStart": "true",
+--    "RunOnceActivity.ShowReadmeOnStart": "true",
+--    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+--    "git-widget-placeholder": "master",
+--    "kotlin-language-version-configured": "true",
+--    "last_opened_file_path": "C:/Users/Hp/Desktop/project/Hotel",
+--    "project.structure.last.edited": "Modules",
+--    "project.structure.proportion": "0.15",
+--    "project.structure.side.proportion": "0.2",
+--    "settings.editor.selected.configurable": "preferences.pluginManager"
+-+  <component name="PropertiesComponent">{
+-+  &quot;keyToString&quot;: {
+-+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hp/Desktop/project/Hotel&quot;,
+-+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+-+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+-+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+-+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+-   }
+--}]]></component>
+-+}</component>
+-   <component name="RunManager">
+-     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-       <option name="MAIN_CLASS_NAME" value="org.uz.entiti.Main" />
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01__Changes_.xml	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ /dev/null	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Checkout_at_07_07_2024_13_01_[Changes]" date="1720339302124" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 07.07.2024 13:01 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ b/.idea/vcs.xml	(date 1720348308858)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"66f61cc4-1f0d-4202-af60-bb962cc86c40\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/Room.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_1.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01_[Changes]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01__Changes_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/uiDesigner.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/vcs.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/Database/DB.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/Database/DB.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/Database/orderHistory.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/Database/OrderHistory.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/Hotel.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/Role.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/Role.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/User.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/User.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/service/AdminService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/service/AdminService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/service/AuthService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/service/AuthService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/service/UserService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/uz/entity/service/UserService.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <favorite-branches>\r\n      <branch-storage>\r\n        <map>\r\n          <entry type=\"LOCAL\">\r\n            <value>\r\n              <list>\r\n                <branch-info repo=\"$PROJECT_DIR$\" source=\"Mardonbek\" />\r\n              </list>\r\n            </value>\r\n          </entry>\r\n        </map>\r\n      </branch-storage>\r\n    </favorite-branches>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"Azizbek\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2iulL9wMxRJAkFOobjpX3C5QEa0\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"Mardonbek\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"D:/java/proyect/Hotel\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.uz.entity.Main\" />\r\n      <module name=\"hotel\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"org.uz.entity.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"66f61cc4-1f0d-4202-af60-bb962cc86c40\" name=\"Changes\" comment=\"\" />\r\n      <created>1720348285100</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1720348285100</updated>\r\n      <workItem from=\"1720348286234\" duration=\"871000\" />\r\n      <workItem from=\"1720361161283\" duration=\"3046000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d9d76b3e7d97c03ebfb975cd37db8ee3cd0e13d7)
++++ b/.idea/workspace.xml	(date 1720365934691)
+@@ -112,7 +112,7 @@
+       <option name="presentableId" value="Default" />
+       <updated>1720348285100</updated>
+       <workItem from="1720348286234" duration="871000" />
+-      <workItem from="1720361161283" duration="3046000" />
++      <workItem from="1720361161283" duration="4618000" />
+     </task>
+     <servers />
+   </component>
+Index: src/main/java/org/uz/entity/entitiy/Room.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entity/entitiy/Room.java b/src/main/java/org/uz/entity/entitiy/Room.java
+new file mode 100644
+--- /dev/null	(date 1720363903763)
++++ b/src/main/java/org/uz/entity/entitiy/Room.java	(date 1720363903763)
+@@ -0,0 +1,68 @@
++package org.uz.entity.entitiy;
++
++import java.util.Date;
++
++public class Room {
++    public static Room[][] rooms = new Room[10][20];
++    private Boolean free = true;
++    private Date date;
++    private Boolean active = true;
++    private String bookedBy;
++
++    static {
++        for (int i = 0; i < 10; i++) {
++            for (int j = 0; j < 20; j++) {
++                rooms[i][j] = new Room(true, null, true, null);
++            }
++        }
++    }
++
++    public Room(Boolean free, Date date, Boolean active, String bookedBy) {
++        this.free = free;
++        this.date = date;
++        this.active = active;
++        this.bookedBy = bookedBy;
++    }
++
++    public Boolean getFree() {
++        return free;
++    }
++
++    public void setFree(Boolean free) {
++        this.free = free;
++    }
++
++    public Date getDate() {
++        return date;
++    }
++
++    public void setDate(Date date) {
++        this.date = date;
++    }
++
++    public Boolean getActive() {
++        return active;
++    }
++
++    public void setActive(Boolean active) {
++        this.active = active;
++    }
++
++    public String getBookedBy() {
++        return bookedBy;
++    }
++
++    public void setBookedBy(String bookedBy) {
++        this.bookedBy = bookedBy;
++    }
++
++    @Override
++    public String toString() {
++        return "Room{" +
++                "free=" + free +
++                ", date=" + date +
++                ", active=" + active +
++                ", bookedBy='" + bookedBy + '\'' +
++                '}';
++    }
++}
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n    <option name=\"workspaceImportForciblyTurnedOn\" value=\"true\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" default=\"true\" project-jdk-name=\"corretto-17 (2)\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision a1ee56e316041a3ecbe6d1dd4d4248e0c92bd5d9)
++++ b/.idea/misc.xml	(date 1720348308800)
+@@ -7,9 +7,6 @@
+         <option value="$PROJECT_DIR$/pom.xml" />
+       </list>
+     </option>
+-    <option name="workspaceImportForciblyTurnedOn" value="true" />
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-17 (2)" project-jdk-type="JavaSDK">
+-    <output url="file://$PROJECT_DIR$/out" />
+-  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK" />
+ </project>
+\ No newline at end of file
