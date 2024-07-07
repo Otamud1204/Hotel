@@ -4,28 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66f61cc4-1f0d-4202-af60-bb962cc86c40" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entity/Database/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/Database/DB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entity/Database/orderHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/Database/OrderHistory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entity/Hotel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entity/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entity/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/service/AdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entity/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entity/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/service/UserService.java" afterDir="false" />
-    </list>
+    <list default="true" id="66f61cc4-1f0d-4202-af60-bb962cc86c40" name="Changes" comment="update now" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,6 +35,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2iulL9wMxRJAkFOobjpX3C5QEa0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -65,7 +47,7 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Mardonbek",
+    "git-widget-placeholder": "Otamurod",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/java/proyect/Hotel",
     "node.js.detected.package.eslint": "true",
@@ -73,6 +55,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -129,5 +114,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update now" />
+    <option name="LAST_COMMIT_MESSAGE" value="update now" />
   </component>
 </project>
