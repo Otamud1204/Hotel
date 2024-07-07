@@ -12,6 +12,7 @@ public class DB {
     public static ArrayList<User> users = new ArrayList<>();
 
     static {
-        users.add(new User("admin", "admin", "1234", "admin1234", Role.ADMIN));
+        users.add(new User("adminbek", "admin", "1234", "admin1234", Role.ADMIN));
     }
 }
+// New
