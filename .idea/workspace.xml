@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b1af64b-4eb4-46d4-a665-e147a619e01d" name="Changes" comment="test" />
+    <list default="true" id="1b1af64b-4eb4-46d4-a665-e147a619e01d" name="Changes" comment="test">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39_[Changes]1/shelved.patch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Admin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +30,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Azizbek" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -38,9 +54,33 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Hp/Desktop/project/Hotel"
+    "last_opened_file_path": "C:/Users/Hp/Desktop/project/Hotel",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.uz.entiti.Main" />
+      <module name="Hotel" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.uz.entiti.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

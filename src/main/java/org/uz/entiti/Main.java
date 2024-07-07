@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.uz.entiti.Database.DB;
+import org.uz.entiti.service.AuthService;
 
 @Data
 @NoArgsConstructor
@@ -12,9 +13,9 @@ public class Main {
     public static void main(String[] args) {
         while (true) {
             System.out.println("""
-                    0-exit 
+                    0-exit
                     1-Sign  Up
-                    2-Sign In                  
+                    2-Sign In        
                     """);
             switch (DB.scanner.nextInt()) {
                 case 0 -> {
@@ -22,10 +23,10 @@ public class Main {
                     return;
                 }
                 case 1 -> {
-
+                    AuthService.signUp();
                 }
                 case 2 -> {
-
+                    AuthService.signIn();
                 }
 
             }

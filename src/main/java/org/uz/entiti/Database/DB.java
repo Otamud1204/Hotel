@@ -13,5 +13,6 @@ public class DB {
 
     public static void main(String[] args) {
         users.add(new User("admin", "admin", "123", "admin123", Role.ADMIN));
+        git
     }
 }
