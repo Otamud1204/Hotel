@@ -28,9 +28,6 @@ public class AdminService {
                 case 5 -> removeBooking();
                 case 6 -> showUsers();
                 case 7 -> removeUser();
-                case 8 -> {
-                    return;
-                }
                 default -> System.out.println("Invalid option. Please try again.");
             }
 
