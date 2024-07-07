@@ -1,6 +1,6 @@
-package org.uz.entiti.service;
+package org.uz.entity.service;
 
-import org.uz.entiti.Database.DB;
+import org.uz.entity.Database.DB;
 
 public class UserService {
     public static void userService() {
@@ -19,20 +19,14 @@ public class UserService {
                     System.out.println("bye bye");
                     return;
                 }
-                case 1 -> {
-                    myBookings();
-                }
-                case 2 -> {
-                    activeRooms();
-                }
-                case 3 -> {
-                    booking();
-                }
-                case 4 -> {
-                    cancel();
-                }
-                case 5 -> {
-                    balance();
+                case 1 -> myBookings();
+                case 2 -> activeRooms();
+                case 3 -> booking();
+                case 4 -> cancel();
+                case 5 -> balance();
+                default -> {
+                    System.out.println("Wrong operation!");
+                    return;
                 }
             }
         }

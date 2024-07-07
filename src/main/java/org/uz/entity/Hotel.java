@@ -1,4 +1,4 @@
-package org.uz.entiti;
+package org.uz.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package org.uz.entiti.Database;
+package org.uz.entity.Database;
 
 public class orderHistory {
 

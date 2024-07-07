@@ -4,13 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b1af64b-4eb4-46d4-a665-e147a619e01d" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_13_01__Changes_.xml" afterDir="false" />
+    <list default="true" id="1b1af64b-4eb4-46d4-a665-e147a619e01d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_07_2024_12_39__Changes_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/Database/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/Database/orderHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/Hotel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/entitiy/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/service/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entity/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,11 +65,11 @@
 }</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.uz.entiti.Main" />
+      <option name="MAIN_CLASS_NAME" value="org.uz.entity.Main" />
       <module name="Hotel" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.uz.entiti.*" />
+          <option name="PATTERN" value="org.uz.entity.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

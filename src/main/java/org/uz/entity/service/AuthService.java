@@ -1,10 +1,10 @@
-package org.uz.entiti.service;
+package org.uz.entity.service;
 
-import org.uz.entiti.entitiy.Role;
-import org.uz.entiti.entitiy.User;
+import org.uz.entity.entitiy.Role;
+import org.uz.entity.entitiy.User;
 
-import static org.uz.entiti.Database.DB.strScanner;
-import static org.uz.entiti.Database.DB.users;
+import static org.uz.entity.Database.DB.strScanner;
+import static org.uz.entity.Database.DB.users;
 
 public class AuthService {
     public static void signUp() {
