@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         while (true) {
             System.out.println("""
-                    0-exit
+                    0-exit 
                     1-Sign  Up
                     2-Sign In                  
                     """);
