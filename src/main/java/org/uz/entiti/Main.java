@@ -13,7 +13,7 @@ public class Main {
         while (true) {
             System.out.println("""
                     0-exit
-                    1-Sign Up
+                    1-Sign  Up
                     2-Sign In                  
                     """);
             switch (DB.scanner.nextInt()) {
