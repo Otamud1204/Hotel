@@ -1,0 +1,121 @@
+Index: src/main/java/org/uz/entiti/Database/orderHistory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.uz.entiti.Database;\r\n\r\npublic class orderHistory {\r\n\r\n//    ArrayList<User> users = new ArrayList<>();\r\n private static int a = 1;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entiti/Database/orderHistory.java b/src/main/java/org/uz/entiti/Database/orderHistory.java
+--- a/src/main/java/org/uz/entiti/Database/orderHistory.java	
++++ b/src/main/java/org/uz/entiti/Database/orderHistory.java	
+@@ -3,5 +3,4 @@
+ public class orderHistory {
+ 
+ //    ArrayList<User> users = new ArrayList<>();
+- private static int a = 1;
+ }
+Index: src/main/java/org/uz/entiti/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.uz.entiti;\r\n\r\nimport lombok.AllArgsConstructor;\r\nimport lombok.Data;\r\nimport lombok.NoArgsConstructor;\r\nimport org.uz.entiti.Database.DB;\r\n\r\n@Data\r\n@NoArgsConstructor\r\n@AllArgsConstructor\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        while (true) {\r\n            System.out.println(\"\"\"\r\n                    0-exit \r\n                    1-Sign  Up\r\n                    2-Sign In                  \r\n                    \"\"\");\r\n            switch (DB.scanner.nextInt()) {\r\n                case 0 -> {\r\n                    System.out.println(\"bye bye\");\r\n                    return;\r\n                }\r\n                case 1 -> {\r\n\r\n                }\r\n                case 2 -> {\r\n\r\n                }\r\n\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entiti/Main.java b/src/main/java/org/uz/entiti/Main.java
+--- a/src/main/java/org/uz/entiti/Main.java	
++++ b/src/main/java/org/uz/entiti/Main.java	
+@@ -3,7 +3,9 @@
+ import lombok.AllArgsConstructor;
+ import lombok.Data;
+ import lombok.NoArgsConstructor;
+-import org.uz.entiti.Database.DB;
++import org.uz.entiti.service.AuthService;
++
++import java.util.Scanner;
+ 
+ @Data
+ @NoArgsConstructor
+@@ -11,23 +13,23 @@
+ public class Main {
+     public static void main(String[] args) {
+         while (true) {
++            Scanner scanner = new Scanner(System.in);
+             System.out.println("""
+-                    0-exit 
+-                    1-Sign  Up
+-                    2-Sign In                  
++                    0-exit
++                    1-Sign Up
++                    2-Sign In
+                     """);
+-            switch (DB.scanner.nextInt()) {
++            switch (scanner.nextInt()) {
+                 case 0 -> {
+                     System.out.println("bye bye");
+                     return;
+                 }
+                 case 1 -> {
+-
++                    AuthService.signUp();
+                 }
+                 case 2 -> {
+-
++                    AuthService.signIn();
+                 }
+-
+             }
+         }
+     }
+Index: src/main/java/org/uz/entiti/Admin.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/uz/entiti/Admin.java b/src/main/java/org/uz/entiti/Admin.java
+deleted file mode 100644
+--- a/src/main/java/org/uz/entiti/Admin.java	
++++ /dev/null	
+@@ -1,5 +0,0 @@
+-package org.uz.entiti;
+-
+-public class Admin {
+-
+-}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"1b1af64b-4eb4-46d4-a665-e147a619e01d\" name=\"Changes\" comment=\"test\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Enum\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 6\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2iuBZnb6RgV8Tdk0598m55FllPe\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/Hp/Desktop/project/Hotel\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"jdk-17.0.9-corretto-17.0.9-4caba194b151-107bc6b7\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"1b1af64b-4eb4-46d4-a665-e147a619e01d\" name=\"Changes\" comment=\"\" />\r\n      <created>1720330641520</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1720330641520</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"test\">\r\n      <created>1720336910558</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1720336910558</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"test\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"test\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,7 +4,16 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="1b1af64b-4eb4-46d4-a665-e147a619e01d" name="Changes" comment="test" />
++    <list default="true" id="1b1af64b-4eb4-46d4-a665-e147a619e01d" name="Changes" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Admin.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Database/orderHistory.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/entitiy/User.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AdminService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/AuthService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/uz/entiti/service/UserService.java" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -20,6 +29,9 @@
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
+   </component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 6
