@@ -1,39 +1,43 @@
 package org.uz.entity.service;
 
+import org.uz.entity.Database.DB;
 import org.uz.entity.entitiy.Role;
 import org.uz.entity.entitiy.User;
 
-import static org.uz.entity.Database.DB.strScanner;
-import static org.uz.entity.Database.DB.users;
-
 public class AuthService {
+    public AuthService() {}
+
     public static void signUp() {
         User user = new User();
-
-        System.out.println("Enter name...");
-        user.setName(strScanner.nextLine());
-        System.out.println("Enter surname...");
-        user.setSurname(strScanner.nextLine());
-        System.out.println("Enter phone number...");
-        user.setPhoneNumber(strScanner.nextLine());
-        System.out.println("Enter password...");
-        user.setPassword(strScanner.nextLine());
+        System.out.println("Ismingizni kiriting...");
+        user.setName(DB.strScanner.nextLine());
+        System.out.println("Familiyangizni kiriting...");
+        user.setSurname(DB.strScanner.nextLine());
+        System.out.println("Telefon raqamingizni kiriting...");
+        user.setPhoneNumber(DB.strScanner.nextLine());
+        System.out.println("Parolingizni kiriting...");
+        user.setPassword(DB.strScanner.nextLine());
         user.setRole(Role.USER);
-        users.add(user);
-        System.out.println("Signed successfully");
+        DB.users.add(user);
+        System.out.println("Ro'yhatdan muvaffaqiyatli o'tildi");
     }
 
     public static void signIn() {
-        System.out.println("Enter name...");
-        String name = strScanner.nextLine();
-        System.out.println("Enter password...");
-        String password = strScanner.nextLine();
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getName().equals(name) && users.get(i).getPassword().equals(password)) {
-                if (users.get(i).getRole().equals(Role.USER)) UserService.userService();
-                if (users.get(i).getRole().equals(Role.ADMIN)) AdminService.adminService();
+        System.out.println("Ismingizni kiriting...");
+        String name = DB.strScanner.nextLine();
+        System.out.println("Parolingizni kiriting...");
+        String password = DB.strScanner.nextLine();
+
+        for (User user : DB.users) {
+            if (user.getName().equals(name) && user.getPassword().equals(password)) {
+                if (user.getRole().equals(Role.USER)) {
+                    UserService.userService();
+                } else if (user.getRole().equals(Role.ADMIN)) {
+                    AdminService.adminService();
+                }
+                return;
             }
         }
+        System.out.println("Foydalanuvchi topilmadi");
     }
-
 }
