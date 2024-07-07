@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66f61cc4-1f0d-4202-af60-bb962cc86c40" name="Changes" comment="" />
+    <list default="true" id="66f61cc4-1f0d-4202-af60-bb962cc86c40" name="Changes" comment="mardon OtaM.. push qildi." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,6 +96,31 @@
       <workItem from="1720348286234" duration="871000" />
       <workItem from="1720361161283" duration="3046000" />
     </task>
+    <task id="LOCAL-00001" summary="mardon OtaM.. push qildi">
+      <option name="closed" value="true" />
+      <created>1720366566677</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1720366566677</updated>
+    </task>
+    <task id="LOCAL-00002" summary="mardon OtaM.. push qildi.">
+      <option name="closed" value="true" />
+      <created>1720366575466</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1720366575466</updated>
+    </task>
+    <task id="LOCAL-00003" summary="mardon OtaM.. push qildi.">
+      <option name="closed" value="true" />
+      <created>1720366578771</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1720366578771</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,5 +136,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="mardon o'ziga push qildi" />
+    <MESSAGE value="mardon OtaM.. push qildi" />
+    <MESSAGE value="mardon OtaM.. push qildi." />
+    <option name="LAST_COMMIT_MESSAGE" value="mardon OtaM.. push qildi." />
   </component>
 </project>
