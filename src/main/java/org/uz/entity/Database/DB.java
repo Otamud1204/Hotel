@@ -2,7 +2,6 @@ package org.uz.entity.Database;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import org.uz.entity.entitiy.Role;
 import org.uz.entity.entitiy.User;
 
@@ -15,4 +14,3 @@ public class DB {
         users.add(new User("adminbek", "admin", "1234", "admin1234", Role.ADMIN));
     }
 }
-// New

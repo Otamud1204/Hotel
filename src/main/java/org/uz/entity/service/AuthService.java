@@ -31,7 +31,7 @@ public class AuthService {
         for (User user : DB.users) {
             if (user.getName().equals(name) && user.getPassword().equals(password)) {
                 if (user.getRole().equals(Role.USER)) {
-                    UserService.userService();
+                    UserService.userService(user);
                 } else if (user.getRole().equals(Role.ADMIN)) {
                     AdminService.adminService();
                 }

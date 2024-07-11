@@ -1,6 +1,7 @@
 package org.uz.entity.service;
 
 import org.uz.entity.Database.DB;
+import org.uz.entity.Database.OrderHistory;
 import org.uz.entity.entitiy.Room;
 import org.uz.entity.entitiy.User;
 
@@ -9,29 +10,32 @@ import java.util.Date;
 public class UserService {
     public UserService() {}
 
-    public static void userService() {
+    public static void userService(User currentUser) {
         while (true) {
-            System.out.println("0 -> Exit\n1 -> My Bookings\n2 -> Active Rooms\n3 -> Make a Booking\n4 -> Cancel Booking\n5 -> Check Balance\n");
-            int choice = DB.scanner.nextInt();
+            System.out.println("0 -> Exit\n1 -> Show Rooms\n2 -> Book a Room\n3 -> Booking\n4 -> Cancel Bookings\n5 -> Balance\n6 -> Add Card");            int choice = DB.scanner.nextInt();
             DB.scanner.nextLine();
+
             switch (choice) {
                 case 0:
                     System.out.println("Xayr");
                     return;
                 case 1:
-                    myBookings();
+                    myBookings(currentUser);
                     break;
                 case 2:
                     activeRooms();
                     break;
                 case 3:
-                    booking();
+                    makeBooking(currentUser);
                     break;
                 case 4:
-                    cancelBooking();
+                    cancelBooking(currentUser);
                     break;
                 case 5:
-                    checkBalance();
+                    checkBalance(currentUser);
+                    break;
+                case 6:
+                    addCard(currentUser);
                     break;
                 default:
                     System.out.println("Noto'g'ri tanlov! Iltimos, qaytadan urinib ko'ring.");
@@ -39,77 +43,84 @@ public class UserService {
         }
     }
 
-    private static void myBookings() {
-        System.out.println("Sizning bronlaringiz:");
-        User currentUser = getCurrentUser();
-        if (currentUser != null) {
-            for (int i = 0; i < Room.rooms.length; i++) {
-                for (int j = 0; j < Room.rooms[i].length; j++) {
-                    Room room = Room.rooms[i][j];
-                    // getBookedBy metodini ishlatishni o'zgartirdim
-                    if (room.getBookedBy() != null && room.getBookedBy().equals(currentUser.getName())) {
-                        System.out.println("Xona[" + i + "][" + j + "]: " + room);
-                    }
-                }
+    private static void myBookings(User currentUser) {
+        System.out.println(currentUser.getName() + "ning bron qilgan xonalari:");
+        for (Room room : OrderHistory.history) {
+            if (room.getBookedBy() != null && room.getBookedBy().equals(currentUser.getName())) {
+                System.out.println(room);
             }
-        } else {
-            System.out.println("Foydalanuvchi topilmadi.");
         }
     }
 
     private static void activeRooms() {
-        System.out.println("Barcha faol xonalar:");
-        for (int i = 0; i < Room.rooms.length; i++) {
-            for (int j = 0; j < Room.rooms[i].length; j++) {
-                if (Room.rooms[i][j].getActive() && Room.rooms[i][j].getFree()) {
-                    System.out.println("Xona[" + i + "][" + j + "]: " + Room.rooms[i][j]);
+        System.out.println("Barcha aktiv xonalar:");
+        for (int floor = 0; floor < Room.rooms.length; floor++) {
+            for (int roomNumber = 0; roomNumber < Room.rooms[floor].length; roomNumber++) {
+                Room room = Room.rooms[floor][roomNumber];
+                if (!room.isFree()) {
+                    System.out.println("Qavat: " + floor + ", Xona raqami: " + roomNumber + ", Xona: " + room);
                 }
             }
         }
     }
 
-    private static void booking() {
-        System.out.println("Xonani bron qilish...");
-        System.out.println("Qavatni kiriting (0-9):");
+    private static void makeBooking(User currentUser) {
+        System.out.println("Bron qilish uchun qavatni kiriting (0-9):");
         int floor = DB.scanner.nextInt();
         System.out.println("Xona raqamini kiriting (0-19):");
         int roomNumber = DB.scanner.nextInt();
-        User currentUser = getCurrentUser();
-        if (currentUser != null) {
-            Room.rooms[floor][roomNumber].setFree(false);
-            Room.rooms[floor][roomNumber].setDate(new Date());
-            Room.rooms[floor][roomNumber].setActive(true);
-            Room.rooms[floor][roomNumber].setBookedBy(currentUser.getName()); // Foydalanuvchi tomonidan bron qilingan xona
-            System.out.println("Xona muvaffaqiyatli bron qilindi.");
+        Room room = Room.rooms[floor][roomNumber];
+
+        if (room.isFree()) {
+            System.out.println("Bron qilish uchun narx: " + room.getPrice());
+            if (currentUser.chargeBalance(room.getPrice())) {
+                room.setFree(false);
+                room.setActive(true);
+                room.setBookedBy(currentUser.getName());
+                room.setDateFrom(new Date());
+                OrderHistory.history.add(room);
+                System.out.println("Xona muvaffaqiyatli bron qilindi.");
+            } else {
+                System.out.println("Balans yetarli emas.");
+            }
         } else {
-            System.out.println("Foydalanuvchi topilmadi.");
+            System.out.println("Xona band.");
         }
     }
 
-    private static void cancelBooking() {
-        System.out.println("Bronni bekor qilish...");
-        System.out.println("Qavatni kiriting (0-9):");
+    private static void cancelBooking(User currentUser) {
+        System.out.println("Bekor qilish uchun qavatni kiriting (0-9):");
         int floor = DB.scanner.nextInt();
         System.out.println("Xona raqamini kiriting (0-19):");
         int roomNumber = DB.scanner.nextInt();
-        Room.rooms[floor][roomNumber].setFree(true);
-        Room.rooms[floor][roomNumber].setActive(false);
-        Room.rooms[floor][roomNumber].setBookedBy(null); // Bron bekor qilindi
-        System.out.println("Bron muvaffaqiyatli bekor qilindi.");
-    }
+        Room room = Room.rooms[floor][roomNumber];
 
-    private static void checkBalance() {
-        System.out.println("Balansingizni tekshirish...");
-        User currentUser = getCurrentUser();
-        if (currentUser != null) {
-            System.out.println("Balansingiz: $" + currentUser.getBalance());
+        if (!room.isFree() && room.getBookedBy().equals(currentUser.getName())) {
+            room.setFree(true);
+            room.setActive(false);
+            room.setBookedBy(null);
+            room.setDateFrom(null);
+            OrderHistory.history.remove(room);
+            System.out.println("Xona muvaffaqiyatli bekor qilindi.");
         } else {
-            System.out.println("Foydalanuvchi topilmadi.");
+            System.out.println("Siz bu xonani bron qilmagansiz yoki xona band emas.");
         }
     }
 
-    private static User getCurrentUser() {
-        // Foydalanuvchi tekshirish logikasini qo'shing
-        return null; // Demo uchun null qaytarildi
+    private static void checkBalance(User currentUser) {
+        System.out.println("Sizning balansingiz: " + currentUser.getBalance());
+    }
+
+    private static void addCard(User currentUser) {
+        System.out.println("Karta raqamini kiriting:");
+        String cardNumber = DB.strScanner.nextLine();
+        System.out.println("Yilni kiriting:");
+        int year = DB.scanner.nextInt();
+        System.out.println("Oyni kiriting:");
+        int month = DB.scanner.nextInt();
+        System.out.println("Balans miqdorini kiriting:");
+        double amount = DB.scanner.nextDouble();
+        currentUser.addBalance(amount);
+        System.out.println("Karta muvaffaqiyatli qo'shildi va balans yangilandi.");
     }
 }

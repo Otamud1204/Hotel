@@ -6,21 +6,23 @@ import org.uz.entity.service.AuthService;
 public class Main {
     public static void main(String[] args) {
         while (true) {
-            System.out.println("1. Sign Up\n2. Sign In\n3. Exit");
+            System.out.println("0 -> Exit\n1 -> Sign Up\n2 -> Sign In");
             int choice = DB.scanner.nextInt();
             DB.scanner.nextLine();
             switch (choice) {
+                case 0:
+                    System.out.println("Xayr");
+                    return;
                 case 1:
                     AuthService.signUp();
                     break;
                 case 2:
                     AuthService.signIn();
                     break;
-                case 3:
-                    System.out.println("Exiting...");
-                    return;
                 default:
-                    System.out.println("Invalid option. Please try again.");
+                    System.out.println("Noto'g'ri tanlov! Iltimos, qaytadan urinib ko'ring.");
+
+
             }
         }
     }
